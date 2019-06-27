@@ -15,7 +15,28 @@
     #portraits div img {
         width: 2.625in;
         height: 2.625in;
+        box-sizing: border-box;
         border-radius: 50%;
+    }
+
+    img.gold-border {
+        border: 2mm solid orange;
+    }
+
+    img.blue-border {
+        border: 2mm solid cyan;
+    }
+
+    img.green-border {
+        border: 2mm solid lime;
+    }
+
+    img.red-border {
+        border: 2mm solid red;
+    }
+
+    img.yellow-border {
+        border: 2mm solid yellow;
     }
 
     @media print {
@@ -35,7 +56,18 @@
         let {id, name} = response.characters.find(character => character.name.toLowerCase() === input.trim().toLowerCase());
 
         let new_portrait = document.createElement("div");
-        new_portrait.innerHTML = `<img src="https://imageserver.eveonline.com/Character/${id}_1024.jpg"><br/>${name} <button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
+        new_portrait.innerHTML = `
+<img src="https://imageserver.eveonline.com/Character/${id}_1024.jpg">
+<br/>${name}<br/F>
+<select onchange="this.parentElement.children[0].className = this.value + '-border'">
+    <option value="none">None</option>
+    <option value="gold">Gold</option>
+    <option value="yellow">Amarr</option>
+    <option value="blue">Caldari</option>
+    <option value="green">Gallente</option>
+    <option value="red">Minmatar</option>
+</select>
+<button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
         document.getElementById("portraits").appendChild(new_portrait);
     }
 
