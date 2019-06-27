@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<title>Badges</title>
+<style>
+    html,
+    body {
+        font-family: sans-serif;
+    }
+
+    #portraits div {
+        float: left;
+        margin: 0.01in;
+        text-align: center;
+    }
+
+    #portraits div img {
+        width: 2.625in;
+        height: 2.625in;
+        border-radius: 50%;
+    }
+
+    @media print {
+        .print-hide {
+            display: none;
+        }
+    }
+</style>
+<script>
+    async function addPortrait() {
+        let input = document.getElementById("char-name").value;
+        let request = fetch("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([input])});
+        let response = await request.then(response => response.json());
+        if (!response.characters) {
+            throw new Error(`Couldn't find character with name "${input}"`);
+        }
+        let {id, name} = response.characters.find(character => character.name.toLowerCase() === input.trim().toLowerCase());
+
+        let new_portrait = document.createElement("div");
+        new_portrait.innerHTML = `<img src="https://imageserver.eveonline.com/Character/${id}_1024.jpg"><br/>${name} <button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
+        document.getElementById("portraits").appendChild(new_portrait);
+    }
+
+    function removeAll() {
+        const portraits = document.getElementById("portraits");
+        for (let e of portraits.querySelectorAll("div")) {
+            portraits.removeChild(e);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("add-char-form").addEventListener("submit", event => {
+            event.preventDefault();
+            addPortrait().catch(error => alert(error.message));
+        })
+    });
+</script>
+<form id="add-char-form" class="print-hide">
+    <strong>Character name:</strong>
+    <input id="char-name" type="text" />
+    <button type="submit">Add</button>
+</form>
+<section id="portraits"></section>
+<div class="print-hide" style="clear: both;"><button id="remove-all" onclick="removeAll();">Remove all</button></div>
