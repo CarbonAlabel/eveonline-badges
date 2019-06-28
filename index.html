@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <title>Badges</title>
 <style>
-    html,
     body {
         font-family: sans-serif;
+        display: flex;
+    }
+
+    nav {
+        flex: none;
+        padding: 1em;
+        border: thin solid grey;
     }
 
     #portraits div {
@@ -40,7 +46,7 @@
     }
 
     @media print {
-        .print-hide {
+        nav, select, button {
             display: none;
         }
     }
@@ -85,10 +91,12 @@
         })
     });
 </script>
-<form id="add-char-form" class="print-hide">
-    <strong>Character name:</strong>
-    <input id="char-name" type="text" />
-    <button type="submit">Add</button>
-</form>
+<nav>
+    <form id="add-char-form" class="print-hide">
+        <strong>Character name:</strong>
+        <input id="char-name" type="text" />
+        <button type="submit">Add</button>
+    </form>
+    <button id="remove-all" onclick="removeAll();">Remove all</button>
+</nav>
 <section id="portraits"></section>
-<div class="print-hide" style="clear: both;"><button id="remove-all" onclick="removeAll();">Remove all</button></div>
