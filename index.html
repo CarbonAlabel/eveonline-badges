@@ -46,7 +46,10 @@
     }
 
     @media print {
-        nav, select, button {
+
+        nav,
+        select,
+        button {
             display: none;
         }
     }
@@ -79,6 +82,12 @@
         addBadge(name, `https://imageserver.eveonline.com/Character/${id}_1024.jpg`);
     }
 
+    function addImage() {
+        let input = document.getElementById("image-url").value;
+        document.getElementById("add-image-form").reset();
+        addBadge("", input);
+    }
+
     function removeAll() {
         const portraits = document.getElementById("portraits");
         for (let e of portraits.querySelectorAll("div")) {
@@ -90,14 +99,21 @@
         document.getElementById("add-char-form").addEventListener("submit", event => {
             event.preventDefault();
             addPortrait().catch(error => alert(error.message));
-        })
+        });
+        document.getElementById("add-image-form").addEventListener("submit", event => {
+            event.preventDefault();
+            addImage();
+        });
     });
 </script>
 <nav>
     <form id="add-char-form" class="print-hide">
-        <strong>Character name:</strong>
         <input id="char-name" type="text" />
-        <button type="submit">Add</button>
+        <button type="submit">Add character</button>
+    </form>
+    <form id="add-image-form" class="print-hide">
+        <input id="image-url" type="text" />
+        <button type="submit">Add image</button>
     </form>
     <button id="remove-all" onclick="removeAll();">Remove all</button>
 </nav>
