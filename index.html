@@ -69,6 +69,7 @@
 
     async function addPortrait() {
         let input = document.getElementById("char-name").value;
+        document.getElementById("add-char-form").reset();
         let request = fetch("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([input])});
         let response = await request.then(response => response.json());
         if (!response.characters) {
