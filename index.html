@@ -1,59 +1,6 @@
 <!DOCTYPE html>
 <title>Badges</title>
-<style>
-    body {
-        font-family: sans-serif;
-        display: flex;
-    }
-
-    nav {
-        flex: none;
-        padding: 1em;
-        border: thin solid grey;
-    }
-
-    #portraits div {
-        float: left;
-        margin: 0.01in;
-        text-align: center;
-    }
-
-    #portraits div img {
-        width: 2.625in;
-        height: 2.625in;
-        box-sizing: border-box;
-        border-radius: 50%;
-    }
-
-    img.gold-border {
-        border: 2mm solid orange;
-    }
-
-    img.blue-border {
-        border: 2mm solid cyan;
-    }
-
-    img.green-border {
-        border: 2mm solid lime;
-    }
-
-    img.red-border {
-        border: 2mm solid red;
-    }
-
-    img.yellow-border {
-        border: 2mm solid yellow;
-    }
-
-    @media print {
-
-        nav,
-        select,
-        button {
-            display: none;
-        }
-    }
-</style>
+<link href="index.css" rel="stylesheet">
 <script>
     function addBadge(name, url) {
         const badge = document.createElement("div");
