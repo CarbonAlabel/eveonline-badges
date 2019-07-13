@@ -38,7 +38,8 @@ function onFormSubmit(formName, submitFunction) {
     const form = document.forms[formName];
     form.addEventListener("submit", event => {
         event.preventDefault();
-        submitFunction(Object.fromEntries(new FormData(form)));
+        const formData = Object.fromEntries(new FormData(form));
+        Promise.resolve(submitFunction(formData)).catch(alert);
         form.reset();
     });
 }
