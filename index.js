@@ -1,13 +1,17 @@
-function addBadge(url, name = "") {
+function addBadge(url, name = "", bgSelector = false) {
     const badge = document.createElement("div");
     badge.innerHTML = `<img src="${url}"><br/>${name}<br/>
 <select onchange="this.parentElement.children[0].className = this.value + '-border'">
-    <option value="none">None</option>
+    <option value="none">No border</option>
     <option value="gold">Gold</option>
     <option value="yellow">Amarr</option>
     <option value="blue">Caldari</option>
     <option value="green">Gallente</option>
     <option value="red">Minmatar</option>
+</select>
+<select onchange="this.parentElement.children[0].style.backgroundColor = this.value" style="display: ${bgSelector ? "inline-block" : "none"};">
+    <option value="white">White BG</option>
+    <option value="black">Black BG</option>
 </select>
 <button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
     document.getElementById("portraits").appendChild(badge);
@@ -23,8 +27,8 @@ async function addPortrait({character}) {
     addBadge(`https://imageserver.eveonline.com/Character/${id}_1024.jpg`, name);
 }
 
-function addImage({url}) {
-    addBadge(url);
+function addImage({url, name}) {
+    addBadge(url, name, true);
 }
 
 function removeAll() {
