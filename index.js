@@ -28,6 +28,9 @@ function addImage({url}) {
 }
 
 function removeAll() {
+    if (!confirm("Are you sure you want to remove all the images?")) {
+        return;
+    }
     const portraits = document.getElementById("portraits");
     for (let e of Array.from(portraits.children)) {
         portraits.removeChild(e);
