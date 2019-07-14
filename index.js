@@ -14,7 +14,7 @@ function addBadge(url, name = "", bgSelector = false) {
     <option value="black">Black BG</option>
 </select>
 <button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
-    document.getElementById("portraits").appendChild(badge);
+    document.getElementById("badges").appendChild(badge);
 }
 
 async function addPortrait({character}) {
@@ -32,12 +32,12 @@ function addImage({url, name}) {
 }
 
 function removeAll() {
-    if (!confirm("Are you sure you want to remove all the images?")) {
+    if (!confirm("Are you sure you want to remove all badges?")) {
         return;
     }
-    const portraits = document.getElementById("portraits");
-    for (let e of Array.from(portraits.children)) {
-        portraits.removeChild(e);
+    const badges = document.getElementById("badges");
+    for (let badge of Array.from(badges.children)) {
+        badges.removeChild(badge);
     }
 }
 

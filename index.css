@@ -9,13 +9,13 @@ nav {
     border: thin solid grey;
 }
 
-#portraits div {
+#badges div {
     float: left;
     margin: 0.01in;
     text-align: center;
 }
 
-#portraits div img {
+#badges div img {
     width: 2.625in;
     height: 2.625in;
     box-sizing: border-box;
