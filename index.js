@@ -17,12 +17,16 @@ function addBadge(url, name = "", bgSelector = false) {
     document.getElementById("badges").appendChild(badge);
 }
 
-async function addPortrait({character}) {
-    let request = await fetch("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([character])});
+async function request(...args) {
+    let request = await fetch(...args);
     if (!request.ok) {
         throw new Error(`ESI responded with a ${request.status} error`);
     }
-    let response = await request.json();
+    return request.json();
+}
+
+async function addPortrait({character}) {
+    let response = await request("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([character])});
     if (!response.characters) {
         throw new Error(`Couldn't find character with name "${character}"`);
     }
