@@ -45,7 +45,10 @@ function onFormSubmit(formName, submitFunction) {
     const form = document.forms[formName];
     form.addEventListener("submit", event => {
         event.preventDefault();
-        const formData = Object.fromEntries(new FormData(form));
+        const formData = {};
+        for (let [key, value] of new FormData(form).entries()) {
+            formData[key] = value.trim();
+        }
         Promise.resolve(submitFunction(formData)).catch(alert);
         form.reset();
     });
