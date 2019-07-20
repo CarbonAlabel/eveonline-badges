@@ -18,8 +18,11 @@ function addBadge(url, name = "", bgSelector = false) {
 }
 
 async function addPortrait({character}) {
-    let request = fetch("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([character])});
-    let response = await request.then(response => response.json());
+    let request = await fetch("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([character])});
+    if (!request.ok) {
+        throw new Error(`ESI responded with a ${request.status} error`);
+    }
+    let response = await request.json();
     if (!response.characters) {
         throw new Error(`Couldn't find character with name "${character}"`);
     }
