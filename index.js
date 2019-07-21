@@ -1,7 +1,7 @@
 function addBadge(url, name = "", bgSelector = false) {
     const badge = document.createElement("div");
-    badge.innerHTML = `<img src="${url}"><br/>${name}<br/>
-<select onchange="this.parentElement.children[0].className = this.value + '-border'">
+    badge.innerHTML = `<img src="${url}"><br>${name}<br>
+<select onchange="this.parentElement.firstElementChild.className = this.value + '-border'">
     <option value="none">No border</option>
     <option value="gold">Gold</option>
     <option value="yellow">Amarr</option>
@@ -9,11 +9,11 @@ function addBadge(url, name = "", bgSelector = false) {
     <option value="green">Gallente</option>
     <option value="red">Minmatar</option>
 </select>
-<select onchange="this.parentElement.children[0].style.backgroundColor = this.value" style="display: ${bgSelector ? "inline-block" : "none"};">
+<select onchange="this.parentElement.firstElementChild.style.backgroundColor = this.value" style="display: ${bgSelector ? "inline-block" : "none"};">
     <option value="white">White BG</option>
     <option value="black">Black BG</option>
 </select>
-<button class="print-hide" onclick="this.parentElement.parentElement.removeChild(this.parentElement)">Remove</button>`;
+<button onclick="this.parentElement.remove()">Remove</button>`;
     document.getElementById("badges").appendChild(badge);
 }
 
