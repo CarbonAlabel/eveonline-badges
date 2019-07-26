@@ -1,5 +1,5 @@
 function addBadge(url, name = "", bgSelector = false) {
-    const badge = document.createElement("div");
+    let badge = document.createElement("div");
     badge.innerHTML = `<img src="${url}"><br>${name}<br>
 <select onchange="this.parentElement.firstElementChild.className = this.value">
     <option value="none">No border</option>
@@ -109,17 +109,17 @@ function removeAll() {
     if (!confirm("Are you sure you want to remove all badges?")) {
         return;
     }
-    const badges = document.getElementById("badges");
+    let badges = document.getElementById("badges");
     for (let badge of Array.from(badges.children)) {
         badges.removeChild(badge);
     }
 }
 
 function onFormSubmit(formName, submitFunction) {
-    const form = document.forms[formName];
+    let form = document.forms[formName];
     form.addEventListener("submit", event => {
         event.preventDefault();
-        const formData = {};
+        let formData = {};
         for (let [key, value] of new FormData(form).entries()) {
             formData[key] = value.trim();
         }
