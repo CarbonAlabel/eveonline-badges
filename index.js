@@ -9,7 +9,7 @@ function addBadge(url, name = "", bgSelector = false) {
     <option value="green">Gallente</option>
     <option value="red">Minmatar</option>
 </select>
-<select onchange="this.parentElement.firstElementChild.style.backgroundColor = this.value" style="display: ${bgSelector ? "inline-block" : "none"};">
+<select onchange="this.parentElement.firstElementChild.style.backgroundColor = this.value" class="${bgSelector ? "" : "hide"}">
     <option value="white">White BG</option>
     <option value="black">Black BG</option>
 </select>

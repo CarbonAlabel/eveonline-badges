@@ -42,6 +42,10 @@ img.yellow-border {
     border: 2mm solid yellow;
 }
 
+.hide {
+    display: none;
+}
+
 @media print {
     nav, select, button {
         display: none;
