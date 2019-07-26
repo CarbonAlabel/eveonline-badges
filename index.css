@@ -46,23 +46,23 @@ nav {
     border-radius: 50%;
 }
 
-img.gold-border {
+img.gold {
     border: 2mm solid orange;
 }
 
-img.blue-border {
+img.blue {
     border: 2mm solid cyan;
 }
 
-img.green-border {
+img.green {
     border: 2mm solid lime;
 }
 
-img.red-border {
+img.red {
     border: 2mm solid red;
 }
 
-img.yellow-border {
+img.yellow {
     border: 2mm solid yellow;
 }
 

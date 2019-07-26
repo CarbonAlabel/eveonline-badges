@@ -1,7 +1,7 @@
 function addBadge(url, name = "", bgSelector = false) {
     const badge = document.createElement("div");
     badge.innerHTML = `<img src="${url}"><br>${name}<br>
-<select onchange="this.parentElement.firstElementChild.className = this.value + '-border'">
+<select onchange="this.parentElement.firstElementChild.className = this.value">
     <option value="none">No border</option>
     <option value="gold">Gold</option>
     <option value="yellow">Amarr</option>
