@@ -78,7 +78,7 @@ async function addPortrait({character}) {
         throw new Error(`Couldn't find character with name "${character}"`);
     }
     let {id, name} = response.characters.find(match => match.name.toLowerCase() === character.toLowerCase());
-    addBadge(`https://imageserver.eveonline.com/Character/${id}_1024.jpg`, name);
+    addEntity({id, name, category: "character"});
 }
 
 async function search({query}) {
