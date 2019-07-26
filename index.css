@@ -9,6 +9,30 @@ nav {
     border: thin solid grey;
 }
 
+#search-results {
+    display: flex;
+    flex-direction: column;
+}
+
+#search-results header {
+    margin: 0.5em 0;
+    order: 0;
+}
+
+#search-results div {
+    display: flex;
+    align-items: center;
+}
+
+#search-results span {
+    flex-grow: 1;
+}
+
+#search-results img {
+    width: 4em;
+    height: 4em;
+}
+
 #badges div {
     float: left;
     margin: 0.01in;
