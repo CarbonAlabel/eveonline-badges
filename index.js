@@ -72,6 +72,10 @@ async function request(...args) {
     return request.json();
 }
 
+function removeAllChildren(parentElement) {
+    Array.from(parentElement.children).forEach(element => element.remove());
+}
+
 async function addPortrait({character}) {
     let response = await request("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([character])});
     if (!response.characters) {
@@ -83,7 +87,7 @@ async function addPortrait({character}) {
 
 async function search({query}) {
     let searchResults = document.getElementById("search-results");
-    Array.from(searchResults.children).forEach(element => element.remove());
+    removeAllChildren(searchResults);
     let search = await request(`https://esi.evetech.net/v2/search/?categories=alliance,character,corporation,faction,inventory_type&search=${encodeURIComponent(query)}`);
     let ids = [];
     for (let category in search) {
@@ -106,12 +110,8 @@ function addImage({url, name}) {
 }
 
 function removeAll() {
-    if (!confirm("Are you sure you want to remove all badges?")) {
-        return;
-    }
-    let badges = document.getElementById("badges");
-    for (let badge of Array.from(badges.children)) {
-        badges.removeChild(badge);
+    if (confirm("Are you sure you want to remove all badges?")) {
+        removeAllChildren(document.getElementById("badges"));
     }
 }
 
