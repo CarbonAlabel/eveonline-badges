@@ -132,4 +132,5 @@ document.addEventListener("DOMContentLoaded", () => {
     onFormSubmit("add-char-form", addPortrait);
     onFormSubmit("add-image-form", addImage);
     onFormSubmit("search-form", search);
+    onFormSubmit("remove-all", removeAll);
 });
