@@ -52,8 +52,8 @@ function entityImageURL({id, category}) {
 function addSearchResult({id, name, category}) {
     let searchResult = document.createElement("div");
     searchResult.style.order = {
-        "inventory_type": 1,
-        "faction": 2,
+        "inventory_type": 2,
+        "faction": 1,
         "alliance": 3,
         "corporation": 4,
         "character": 5
