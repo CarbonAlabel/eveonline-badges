@@ -120,7 +120,7 @@ function onFormSubmit(formName, submitFunction) {
     form.addEventListener("submit", event => {
         event.preventDefault();
         let formData = {};
-        for (let [key, value] of new FormData(form).entries()) {
+        for (let [key, value] of new FormData(form)) {
             formData[key] = value.trim();
         }
         Promise.resolve(submitFunction(formData)).catch(alert);
