@@ -60,7 +60,7 @@ function addSearchResult({id, name, category}) {
     }[category];
     searchResult.innerHTML = `<img src="${entityImageURL({id, category})}">
 <span>${name} (${category})</span>
-<button onclick="addEntity({id:${id},name:'${name}',category:'${category}'})">Add</button>`;
+<button onclick="addEntity(this.dataset)" data-id="${id}" data-name="${name}" data-category="${category}">Add</button>`;
     document.getElementById("search-results").appendChild(searchResult);
 }
 
