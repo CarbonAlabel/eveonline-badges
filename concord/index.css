@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+    height: 100vh;
+    padding-left: 1.9349in;
+    display: flex;
+    align-items: center;
+}
+
+.svg-placeholder {
+    width: 2.125in;
+    height: 3.375in;
+    margin-right: 0.0864in;
+    border: solid;
+    box-sizing: border-box;
+}
+
+svg {
+    width: 2.125in;
+    height: 3.375in;
+    margin-right: 0.0864in;
+}
