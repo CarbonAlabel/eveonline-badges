@@ -47,23 +47,23 @@ nav {
 }
 
 img.gold {
-    border: 2mm solid orange;
+    border: 4mm solid orange;
 }
 
 img.blue {
-    border: 2mm solid cyan;
+    border: 4mm solid cyan;
 }
 
 img.green {
-    border: 2mm solid lime;
+    border: 4mm solid lime;
 }
 
 img.red {
-    border: 2mm solid red;
+    border: 4mm solid red;
 }
 
 img.yellow {
-    border: 2mm solid yellow;
+    border: 4mm solid yellow;
 }
 
 .hide {
