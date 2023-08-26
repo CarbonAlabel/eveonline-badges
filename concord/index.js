@@ -30,8 +30,9 @@ function cachedGetter(url) {
 const universe = {};
 Object.defineProperties(universe, {
     races: {get: cachedGetter(esi + "/v1/universe/races/")},
-    bloodlines: {get: cachedGetter(esi + "/v1/universe/bloodlines/")},
-    ancestries: {get: cachedGetter(esi + "/v1/universe/ancestries/")},
+    bloodlines: {get: cachedGetter(esi + "/v2/universe/bloodlines/")},
+    // Character ancestries are no longer returned by ESI
+    // ancestries: {get: cachedGetter(esi + "/v2/universe/ancestries/")},
 });
 
 async function init() {
@@ -58,14 +59,15 @@ async function fill(svg) {
         throw new Error(`Couldn't find character with name "${input}"`);
     }
     const {id, name} = ids.characters.find(match => match.name.toLowerCase() === input);
-    const character = await request(esi + `/v4/characters/${id}/`);
-    svg.querySelector(".portrait").setAttribute("href", `https://imageserver.eveonline.com/Character/${id}_1024.jpg`);
+    const character = await request(esi + `/v5/characters/${id}/`);
+    svg.querySelector(".portrait").setAttribute("href", `https://images.evetech.net/characters/${id}/portrait`);
     svg.querySelector(".id").textContent = id;
     setText(svg.querySelector(".name"), name, 160);
     setText(svg.querySelector(".dob"), character.birthday.substring(0, 10), 95);
     setText(svg.querySelector(".race"), (await universe.races).find(race => race.race_id == character.race_id).name, 90);
     setText(svg.querySelector(".bloodline"), (await universe.bloodlines).find(bloodline => bloodline.bloodline_id == character.bloodline_id).name, 70);
-    setText(svg.querySelector(".ancestry"), (await universe.ancestries).find(ancestry => ancestry.id == character.ancestry_id).name, 75);
+    // Character ancestries are no longer returned by ESI
+    // setText(svg.querySelector(".ancestry"), (await universe.ancestries).find(ancestry => ancestry.id == character.ancestry_id).name, 75);
 }
 
 function setText(element, text, maxWidth) {
