@@ -21,14 +21,14 @@ function addBadge(url, name = "", bgSelector = false) {
 // Add a badge for an EVE entity.
 function addEntity({id, name, category}) {
     switch (category) {
-        case "character":
-        case "inventory_type":
+        case "characters":
+        case "inventory_types":
             // Character portraits and type renders are solid images, the background color selector would serve no purpose.
             addBadge(entityImageURL({id, category}), name);
             break;
-        case "corporation":
-        case "alliance":
-        case "faction":
+        case "corporations":
+        case "alliances":
+        case "factions":
             // Logos might have transparency in them, the background color selector should be displayed.
             addBadge(entityImageURL({id, category}), name, true);
             break;
@@ -40,15 +40,15 @@ function addEntity({id, name, category}) {
 // Return the URL of a logo/render for an EVE entity, in the highest resolution available.
 function entityImageURL({id, category}) {
     switch (category) {
-        case "character":
-            return `https://imageserver.eveonline.com/Character/${id}_1024.jpg`
-        case "corporation":
-            return `https://imageserver.eveonline.com/Corporation/${id}_256.png`;
-        case "alliance":
-        case "faction":
-            return `https://imageserver.eveonline.com/Alliance/${id}_128.png`;
-        case "inventory_type":
-            return `https://imageserver.eveonline.com/Render/${id}_512.png`;
+        case "characters":
+            return `https://images.evetech.net/characters/${id}/portrait`
+        case "corporations":
+        case "factions":
+            return `https://images.evetech.net/corporations/${id}/logo`;
+        case "alliances":
+            return `https://images.evetech.net/alliances/${id}/logo`;
+        case "inventory_types":
+            return `https://images.evetech.net/types/${id}/render`;
         default:
             throw new Error(`Invalid category "${category}"`);
     }
@@ -59,11 +59,11 @@ function addSearchResult({id, name, category}) {
     let searchResult = document.createElement("div");
     // Some entity types should be shown above others.
     searchResult.style.order = {
-        "inventory_type": 2,
-        "faction": 1,
-        "alliance": 3,
-        "corporation": 4,
-        "character": 5
+        "inventory_types": 2,
+        "factions": 1,
+        "alliances": 3,
+        "corporations": 4,
+        "characters": 5
     }[category];
     searchResult.innerHTML = `<img src="${entityImageURL({id, category})}">
 <span>${name} (${category})</span>
@@ -92,7 +92,7 @@ async function addPortrait({character}) {
         throw new Error(`Couldn't find character with name "${character}"`);
     }
     let {id, name} = response.characters.find(match => match.name.toLowerCase() === character.toLowerCase());
-    addEntity({id, name, category: "character"});
+    addEntity({id, name, category: "characters"});
 }
 
 // Perform a search.
@@ -100,25 +100,22 @@ async function search({query}) {
     let searchResults = document.getElementById("search-results");
     // Clear the search result area.
     removeAllChildren(searchResults);
-    let search = await request(`https://esi.evetech.net/v2/search/?categories=alliance,character,corporation,faction,inventory_type&search=${encodeURIComponent(query)}`);
-    // Merge all the search result categories into a single array of IDs.
-    let ids = [];
+    let search = await request("https://esi.evetech.net/v1/universe/ids/", {method: "POST", body: JSON.stringify([query])});
+    // Merge all the search result categories into a single array.
+    let results = [];
     for (let category in search) {
         if (Array.isArray(search[category])) {
-            ids.push(...search[category]);
+            for (let item of search[category]){
+                results.push({...item, category: category});
+            }
         }
-    }
-    // Send the ID list to the names endpoint, to get an array with IDs, names, and categories for each result.
-    let names = await request("https://esi.evetech.net/v3/universe/names/", {method: "POST", body: JSON.stringify(ids)});
-    if (!Array.isArray(names) || !names.length) {
-        throw new Error(`No search results for "${query}"`);
     }
     // Add the search result header.
     let header = document.createElement("header");
     header.textContent = `Search results for "${query}":`;
     searchResults.appendChild(header);
     // Add search result cards for each of the results.
-    names.forEach(addSearchResult);
+    results.forEach(addSearchResult);
 }
 
 // Add a badge for the entered image URL and name.
